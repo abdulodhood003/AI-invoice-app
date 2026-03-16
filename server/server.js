@@ -69,8 +69,12 @@ app.use(errorHandler);
 // --- Server Startup ---
 const PORT = process.env.PORT || 5000;
 
-// Start server and listen on the specified port
-app.listen(PORT, () => {
-  console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`);
-});
-// trigger restart 5
+// Start server and listen on the specified port strictly in non-serverless environments
+if (process.env.NODE_ENV !== 'production') {
+  app.listen(PORT, () => {
+    console.log(`Server running in ${process.env.NODE_ENV || 'development'} mode on port ${PORT}`);
+  });
+}
+
+// Export the Express API for Vercel Serverless Functions
+export default app;
