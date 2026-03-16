@@ -1,0 +1,51 @@
+# Node modules
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Logs
+logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Build folders
+build/
+dist/
+
+# React build
+frontend/build/
+
+# Next.js
+.next/
+
+# Coverage folder
+coverage/
+
+# MongoDB database files (if local)
+*.db
+*.sqlite
+
+# IDE files
+.vscode/
+.idea/
+
+# Temporary files
+tmp/
+temp/
+
+# Mac system files
+.DS_Store
+
+# Optional cache
+.cache/
