@@ -15,16 +15,12 @@
   ],
   "rewrites": [
     {
-      "source": "/api/:match*",
+      "source": "/api/(.*)",
       "destination": "/server/server.js"
     },
     {
-      "source": "/assets/:match*",
-      "destination": "/client/dist/assets/:match*"
-    },
-    {
-      "source": "/:match*",
-      "destination": "/client/dist/index.html"
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
   ]
 }
