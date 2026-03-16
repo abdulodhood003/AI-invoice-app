@@ -5,7 +5,9 @@ import axios from 'axios';
  * All requests sent through 'api' will automatically have the base URL prepended.
  */
 const api = axios.create({
-  baseURL: '/api', // Proxied to localhost:5000 in dev via Vite config
+  // Using an absolute path ensures the request starts from the root domain
+  // instead of appending to the current route (e.g., /invoices/api/auth/login)
+  baseURL: '/api/', 
   headers: {
     'Content-Type': 'application/json',
   },

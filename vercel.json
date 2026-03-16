@@ -13,19 +13,18 @@
       }
     }
   ],
-  "routes": [
+  "rewrites": [
     {
-      "src": "/api/(.*)",
-      "dest": "/server/server.js"
+      "source": "/api/:match*",
+      "destination": "/server/server.js"
     },
     {
-      "src": "/assets/(.*)",
-      "headers": { "cache-control": "s-maxage=31536000, immutable" },
-      "dest": "/client/dist/assets/$1"
+      "source": "/assets/:match*",
+      "destination": "/client/dist/assets/:match*"
     },
     {
-      "src": "/(.*)",
-      "dest": "/client/dist/index.html"
+      "source": "/:match*",
+      "destination": "/client/dist/index.html"
     }
   ]
 }
