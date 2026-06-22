@@ -7,7 +7,7 @@ import axios from 'axios';
 const api = axios.create({
   // Using an absolute path ensures the request starts from the root domain
   // instead of appending to the current route (e.g., /invoices/api/auth/login)
-  baseURL: '/api/', 
+  baseURL: import.meta.env.VITE_API_URL, 
   headers: {
     'Content-Type': 'application/json',
   },
