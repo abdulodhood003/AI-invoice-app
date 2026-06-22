@@ -11,4 +11,11 @@ router.post('/register', registerUser);
 // Desc: Authenticate an existing user and return a JWT
 router.post('/login', loginUser);
 
+router.get('/check', (req, res) => {
+  res.json({
+    success: true,
+    route: 'auth'
+  });
+});
+
 export default router;
