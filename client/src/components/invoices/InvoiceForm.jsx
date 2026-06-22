@@ -12,7 +12,8 @@ const InvoiceForm = ({
   onGenerateDescription, 
   isLoading = false,
   isGeneratingAI = false,
-  storageKey = 'draft_invoice'
+  storageKey = 'draft_invoice',
+  initialData = null
 }) => {
   // Try to load cached draft data from localStorage, ONLY if we are NOT editing an existing invoice Let draft take over if we are creating new.
   const cachedDraftStr = !invoice ? localStorage.getItem(storageKey) : null;
@@ -52,11 +53,44 @@ const InvoiceForm = ({
       return sum + (itemSubtotal * (itemTaxRate / 100));
     }, 0);
     
-    // Only update if it's different to prevent infinite loops, and round to 2 decimals
     if (Math.abs(formData.tax - totalCalculatedTax) > 0.01) {
       setFormData(prev => ({ ...prev, tax: Number(totalCalculatedTax.toFixed(2)) }));
     }
   }, [items, formData.tax]);
+
+  // When AI generates invoice data, pre-fill the form
+  useEffect(() => {
+    if (!initialData) return;
+
+    // Try to prefill consumerDetails from client list if matched
+    let consumerDetails = { name: '', email: '', phone: '', address: '' };
+    let resolvedClientId = initialData.clientId || '';
+
+    if (resolvedClientId) {
+      const matched = clients.find(c => c._id === resolvedClientId);
+      if (matched) {
+        consumerDetails = {
+          name: matched.name || '',
+          email: matched.email || '',
+          phone: matched.phone || '',
+          address: matched.address || '',
+        };
+      }
+    }
+
+    setFormData(prev => ({
+      ...prev,
+      clientId: resolvedClientId,
+      consumerDetails,
+      dueDate: initialData.dueDate || '',
+      status: initialData.status || 'Pending',
+    }));
+
+    if (initialData.items && initialData.items.length > 0) {
+      setItems(initialData.items);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [initialData]);
 
   // --- Handlers ---
   const handleFormChange = (e) => {

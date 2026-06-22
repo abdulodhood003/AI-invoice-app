@@ -1,7 +1,8 @@
 import {
   generateInvoiceDescription,
   generateInvoiceEmail,
-  generateBusinessInsights
+  generateBusinessInsights,
+  generateInvoiceFromPrompt
 } from '../services/aiService.js';
 
 /**
@@ -91,6 +92,31 @@ export const getBusinessInsights = async (req, res, next) => {
     res.status(200).json({ insights });
   } catch (error) {
     if (error.message.includes('missing API key')) {
+      res.status(503);
+    }
+    next(error);
+  }
+};
+
+/**
+ * @desc    Generate a full invoice structure from a natural language prompt
+ * @route   POST /api/ai/generate-invoice
+ * @access  Private
+ */
+export const generateInvoice = async (req, res, next) => {
+  try {
+    const { prompt, clientNames, products } = req.body;
+
+    if (!prompt) {
+      res.status(400);
+      throw new Error('Please provide a prompt describing the invoice.');
+    }
+
+    const invoiceData = await generateInvoiceFromPrompt(prompt, clientNames || [], products || []);
+
+    res.status(200).json({ invoiceData });
+  } catch (error) {
+    if (error.message.includes('missing API key') || error.message.includes('quota exceeded')) {
       res.status(503);
     }
     next(error);

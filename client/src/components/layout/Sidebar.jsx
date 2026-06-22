@@ -77,7 +77,7 @@ const Sidebar = ({ isOpen, onClose }) => {
             <div className="h-8 w-8 rounded bg-primary-600 flex items-center justify-center">
               <span className="text-white font-bold text-xl">{user?.name?.charAt(0) || 'A'}</span>
             </div>
-            <span className="ml-3 text-xl font-bold text-gray-900">AI Invoicer</span>
+            <span className="ml-3 text-xl font-bold text-gray-900">Billora AI</span>
           </div>
           <div className="mt-5 flex-1 h-0 overflow-y-auto">
             <NavigationLinks />
@@ -107,7 +107,7 @@ const Sidebar = ({ isOpen, onClose }) => {
                 <div className="h-8 w-8 rounded bg-primary-600 flex items-center justify-center shadow-sm">
                   <span className="text-white font-bold text-xl uppercase">{user?.name?.charAt(0) || 'A'}</span>
                 </div>
-                <span className="ml-3 text-xl font-extrabold tracking-tight text-gray-900">AI Invoicer</span>
+                <span className="ml-3 text-xl font-extrabold tracking-tight text-gray-900">Billora AI</span>
               </div>
               <NavigationLinks />
             </div>

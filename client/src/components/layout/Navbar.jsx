@@ -19,7 +19,7 @@ const Navbar = ({ onMenuClick }) => {
 
       <div className="flex-1 flex justify-between px-4 sm:px-6">
         <div className="flex-1 flex items-center">
-          <span className="text-xl font-bold text-gray-900">AI Invoicer</span>
+          <span className="text-xl font-bold text-gray-900">Billora AI</span>
         </div>
         <div className="ml-4 flex items-center md:ml-6">
           {/* Notifications Button */}

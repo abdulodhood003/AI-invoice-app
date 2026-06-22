@@ -3,7 +3,8 @@ import { protect } from '../middleware/authMiddleware.js';
 import {
   createDescription,
   createEmail,
-  getBusinessInsights
+  getBusinessInsights,
+  generateInvoice
 } from '../controllers/aiController.js';
 
 const router = express.Router();
@@ -19,5 +20,8 @@ router.post('/generate-email', createEmail);
 
 // Route: POST /api/ai/business-insights
 router.post('/business-insights', getBusinessInsights);
+
+// Route: POST /api/ai/generate-invoice
+router.post('/generate-invoice', generateInvoice);
 
 export default router;

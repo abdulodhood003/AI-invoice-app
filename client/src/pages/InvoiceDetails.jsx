@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Download, Mail, ArrowLeft, Edit } from 'lucide-react';
+import { Download, Mail, ArrowLeft, Edit, Copy, Check, X, Loader2, Sparkles } from 'lucide-react';
 import { useInvoicesData } from '../hooks/useInvoicesData';
 import api from '../services/api';
 import Loader from '../components/ui/Loader';
@@ -16,6 +16,8 @@ const InvoiceDetails = () => {
   
   const [isDraftingEmail, setIsDraftingEmail] = useState(false);
   const [emailDraft, setEmailDraft] = useState(null);
+  const [emailError, setEmailError] = useState(null);
+  const [copied, setCopied] = useState(false);
 
   const handleStatusChange = async (e) => {
     const newStatus = e.target.value;
@@ -44,19 +46,22 @@ const InvoiceDetails = () => {
   const handleGenerateEmail = async () => {
     try {
       setIsDraftingEmail(true);
+      setEmailError(null);
+      setEmailDraft(null);
       
       const payload = {
-        clientName: invoice.clientId?.name || 'Client',
+        clientName: invoice.clientId?.name || invoice.consumerDetails?.name || 'Client',
         invoiceNumber: invoice.invoiceNumber,
         totalAmount: invoice.totalAmount,
         dueDate: invoice.dueDate,
-        companyName: 'AI Invoicer App' // Default company name or dynamic from user context
+        companyName: 'Billora AI'
       };
       
       const res = await api.post('/ai/generate-email', payload);
       setEmailDraft(res.data.emailBody);
     } catch (err) {
-      alert('Failed to generate email via AI');
+      const message = err?.response?.data?.message || err.message || 'Failed to generate email via AI.';
+      setEmailError(message);
     } finally {
       setIsDraftingEmail(false);
     }
@@ -121,32 +126,70 @@ const InvoiceDetails = () => {
              type="button" 
              onClick={handleGenerateEmail} 
              disabled={isDraftingEmail}
-             className="btn-secondary flex items-center"
+             className="flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 disabled:opacity-50 disabled:cursor-not-allowed text-white text-sm font-semibold transition-all shadow-md shadow-indigo-200"
            >
-             <Mail className="h-4 w-4 mr-2" /> {isDraftingEmail ? 'Drafting...' : 'AI Email Draft'}
+             {isDraftingEmail 
+               ? <><Loader2 className="h-4 w-4 animate-spin" /> Drafting...</> 
+               : <><Sparkles className="h-4 w-4" /> AI Email Draft</>}
            </button>
         </div>
       </div>
 
-      {/* AI Draft Display Modal/Block */}
+      {/* AI Email Error Banner */}
+      {emailError && (
+        <div className="mt-4 p-4 bg-red-50 border border-red-200 rounded-xl flex justify-between items-start">
+          <div>
+            <p className="text-sm font-semibold text-red-800">⚠️ Email Generation Failed</p>
+            <p className="text-sm text-red-700 mt-1">{emailError}</p>
+          </div>
+          <button onClick={() => setEmailError(null)} className="text-red-400 hover:text-red-600 ml-4 flex-shrink-0"><X size={16}/></button>
+        </div>
+      )}
+
+      {/* AI Email Draft Card */}
       {emailDraft && (
-        <div className="mt-6 p-6 bg-primary-50 border border-primary-200 rounded-lg">
-           <div className="flex justify-between items-start mb-4">
-             <h3 className="text-sm font-semibold text-primary-900 flex items-center">
-                AI Generated Email Draft
-             </h3>
-             <button onClick={() => setEmailDraft(null)} className="text-sm text-primary-600 hover:text-primary-800">Close</button>
-           </div>
-           <textarea 
-             className="w-full h-48 p-4 text-sm bg-white border border-primary-100 rounded focus:border-primary-500 focus:ring-1 focus:ring-primary-500 outline-none" 
-             defaultValue={emailDraft}
-             onChange={(e) => setEmailDraft(e.target.value)}
-           />
-           <div className="mt-3 flex justify-end">
-             <button onClick={() => navigator.clipboard.writeText(emailDraft)} className="text-sm font-medium text-primary-700 bg-white border border-primary-200 px-3 py-1 rounded shadow-sm hover:bg-gray-50">
-               Copy to Clipboard
-             </button>
-           </div>
+        <div className="mt-6 rounded-2xl border border-indigo-100 bg-gradient-to-br from-indigo-50 via-purple-50 to-white shadow-lg overflow-hidden">
+          {/* Card Header */}
+          <div className="flex items-center justify-between px-6 py-4 border-b border-indigo-100 bg-white/60 backdrop-blur-sm">
+            <div className="flex items-center gap-2">
+              <div className="p-1.5 bg-indigo-600 rounded-lg">
+                <Sparkles className="text-white" size={14} />
+              </div>
+              <span className="text-sm font-bold text-indigo-900">AI Generated Email Draft</span>
+              <span className="text-xs text-indigo-400 font-medium ml-1">• Edit before sending</span>
+            </div>
+            <button 
+              onClick={() => setEmailDraft(null)} 
+              className="text-gray-400 hover:text-gray-600 transition-colors p-1 rounded-lg hover:bg-gray-100"
+            >
+              <X size={16} />
+            </button>
+          </div>
+          {/* Editable Email Body */}
+          <div className="p-6">
+            <textarea 
+              className="w-full h-52 p-4 text-sm text-gray-700 bg-white border border-indigo-100 rounded-xl focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 outline-none resize-none leading-relaxed shadow-inner font-mono" 
+              value={emailDraft}
+              onChange={(e) => setEmailDraft(e.target.value)}
+            />
+            <div className="mt-4 flex items-center justify-between">
+              <p className="text-xs text-gray-400">✏️ You can edit the draft above before copying</p>
+              <button 
+                onClick={() => {
+                  navigator.clipboard.writeText(emailDraft);
+                  setCopied(true);
+                  setTimeout(() => setCopied(false), 2500);
+                }} 
+                className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition-all ${
+                  copied 
+                    ? 'bg-green-500 text-white shadow-md shadow-green-200' 
+                    : 'bg-indigo-600 text-white hover:bg-indigo-700 shadow-md shadow-indigo-200'
+                }`}
+              >
+                {copied ? <><Check size={14} /> Copied!</> : <><Copy size={14} /> Copy to Clipboard</>}
+              </button>
+            </div>
+          </div>
         </div>
       )}
 
@@ -155,7 +198,7 @@ const InvoiceDetails = () => {
           {/* Top Grid */}
          <div className="grid grid-cols-2 gap-8 mb-12">
             <div>
-               <h2 className="text-2xl font-bold text-gray-900 mb-2">AI Invoicer App</h2>
+               <h2 className="text-2xl font-bold text-gray-900 mb-2">Billora AI</h2>
                <p className="text-gray-500 text-sm">123 Tech Lane, Suite 100</p>
                <p className="text-gray-500 text-sm">San Francisco, CA 94107</p>
             </div>

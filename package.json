@@ -1,8 +1,8 @@
 {
-  "name": "ai-invoice-saas",
+  "name": "billora-ai",
   "version": "1.0.0",
   "private": true,
-  "description": "Root package for AI Invoice SaaS",
+  "description": "Root package for Billora AI",
   "scripts": {
     "dev": "concurrently \"npm run dev --prefix server\" \"npm run dev --prefix client\"",
     "server": "npm start --prefix server",
