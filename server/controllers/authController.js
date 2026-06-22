@@ -1,6 +1,7 @@
 import User from '../models/User.js';
 import generateToken from '../utils/generateToken.js';
-
+import Product from '../models/Product.js';
+import Client from '../models/Client.js'
 /**
  * @desc    Register a new user
  * @route   POST /api/auth/register
@@ -8,6 +9,7 @@ import generateToken from '../utils/generateToken.js';
  */
 export const registerUser = async (req, res, next) => {
   try {
+    
     const { name, email, password } = req.body;
 
     // Validate incoming data
@@ -25,25 +27,63 @@ export const registerUser = async (req, res, next) => {
     }
 
     // Create the new user. The pre('save') hook in the User model will hash the password.
-    const user = await User.create({
-      name,
-      email,
-      password,
-    });
+   const user = await User.create({
+  name,
+  email,
+  password,
+});
 
-    if (user) {
-      // Respond with the created user data and a JWT token
-      res.status(201).json({
-        _id: user._id,
-        name: user.name,
-        email: user.email,
-        token: generateToken(user._id),
-      });
-    } else {
-      res.status(400);
-      throw new Error('Failed to create user. Invalid user data.');
-    }
+if (user) {
+  await Product.insertMany([
+    {
+      userId: user._id,
+      name: 'Whole Milk 1L',
+      category: 'Dairy',
+      price: 60,
+      stock: 50,
+    },
+    {
+      userId: user._id,
+      name: 'Brown Bread 400g',
+      category: 'Bakery',
+      price: 45,
+      stock: 20,
+    },
+    {
+      userId: user._id,
+      name: 'Fresh Apples 1kg',
+      category: 'Produce',
+      price: 180,
+      stock: 30,
+    },
+  ]);
+
+  await Client.insertMany([
+    {
+      userId: user._id,
+      name: 'Rajesh Kumar',
+      email: 'rajesh@example.com',
+      phone: '9876543210',
+      address: 'Bangalore',
+    },
+    {
+      userId: user._id,
+      name: 'Priya Sharma',
+      email: 'priya@example.com',
+      phone: '9876543211',
+      address: 'Mumbai',
+    },
+  ]);
+
+  res.status(201).json({
+    _id: user._id,
+    name: user.name,
+    email: user.email,
+    token: generateToken(user._id),
+  });
+}
   } catch (error) {
+    res.status(500).json({message:error.message})
     // Pass the error to the global error handler middleware
     next(error);
   }
