@@ -11,7 +11,7 @@
 ### Intelligent Invoice Management Platform with AI-Powered Business Insights
 
 <p>
-  <a href="YOUR_LIVE_URL">
+  <a href="https://ai-invoice-252jq670b-abdul-odudoods-projects.vercel.app/dashboard">
     <img src="https://img.shields.io/badge/🌐_Live_Demo-Visit_Now-blue?style=for-the-badge" />
   </a>
 
@@ -26,7 +26,11 @@
 
 ## 📖 Overview
 
-AI Invoice SaaS is a modern invoice management system built with the MERN Stack. It helps businesses create invoices, manage products, track clients, monitor inventory, and gain AI-powered business insights.
+## 📖 Overview
+
+AI Invoice SaaS is a full-stack, AI-powered business management platform designed to simplify invoicing, inventory tracking, and customer management for modern businesses. The application enables users to generate and manage invoices, monitor product inventory, organize client data, and gain actionable business insights through AI-driven analytics.
+
+Built with the MERN Stack, the platform combines powerful automation, real-time analytics, and an intuitive user experience to help businesses streamline operations, improve productivity, and make data-driven decisions. With features such as intelligent business insights, revenue tracking, inventory monitoring, and Excel export capabilities, AI Invoice SaaS serves as a comprehensive solution for small and medium-sized businesses.
 
 ---
 
@@ -87,7 +91,7 @@ AI Invoice SaaS is a modern invoice management system built with the MERN Stack.
 
 | Frontend      | Backend    | Database       | AI          |
 | ------------- | ---------- | -------------- | ----------- |
-| React.js      | Node.js    | MongoDB        | Gemini AI   |
+| React.js      | Node.js    | MongoDB        | HuggingfFace|
 | Tailwind CSS  | Express.js | MongoDB Atlas  | Google AI   |
 | Redux Toolkit | JWT        | Mongoose       | AI Insights |
 | Recharts      | REST API   | Cloud Database | Automation  |
@@ -98,15 +102,15 @@ AI Invoice SaaS is a modern invoice management system built with the MERN Stack.
 
 ### Dashboard
 
-<img src="./screenshots/dashboard.png" width="100%" />
+<img src="./images/Dashobard.png" width="100%" />
 
 ### Invoice Management
 
-<img src="./screenshots/invoices.png" width="100%" />
+<img src="./images/Invoice.png" width="100%" />
 
 ### Product Management
 
-<img src="./screenshots/products.png" width="100%" />
+<img src="./images/Product.png" width="100%" />
 
 ---
 
@@ -132,7 +136,7 @@ AI Invoice SaaS is a modern invoice management system built with the MERN Stack.
 
 ```bash
 git clone https://github.com/YOUR_USERNAME/REPO_NAME.git
-cd REPO_NAME
+cd ai-invoice-saas
 ```
 
 ### Install Dependencies
@@ -173,13 +177,13 @@ npm run dev
 
 ## 🌐 Live Demo
 
-### 👉 [Visit AI Invoice SaaS](YOUR_LIVE_URL)
+### 👉 [Visit AI Invoice SaaS](https://ai-invoice-252jq670b-abdul-odudoods-projects.vercel.app/dashboard)
 
 ---
 
 ## 👨‍💻 Developer
 
-**Abdul Wadu**
+**Abdul Odudood*
 
 * Full Stack Developer
 * MERN Stack Developer
