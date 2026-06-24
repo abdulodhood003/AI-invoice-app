@@ -15,7 +15,7 @@
     <img src="https://img.shields.io/badge/🌐_Live_Demo-Visit_Now-blue?style=for-the-badge" />
   </a>
 
-  <a href="https://github.com/YOUR_USERNAME/REPO_NAME">
+  <a href="https://github.com/abdulodhood003/AI-invoice-app">
     <img src="https://img.shields.io/badge/📂_Source_Code-GitHub-black?style=for-the-badge" />
   </a>
 </p>
@@ -154,7 +154,7 @@ npm install
 ### Configure Environment Variables
 
 ```env
-PORT=5000
+PORT=''
 
 MONGODB_URI=YOUR_MONGODB_URI
 
