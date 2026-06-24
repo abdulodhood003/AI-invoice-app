@@ -49,5 +49,6 @@ temp/
 
 # Optional cache
 .cache/
+#bundular 
 dist
 stats.html
