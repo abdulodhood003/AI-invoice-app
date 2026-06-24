@@ -135,7 +135,7 @@ Built with the MERN Stack, the platform combines powerful automation, real-time 
 ### Clone Repository
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/REPO_NAME.git
+git clone https://github.com/abdulodhood003/AI-invoice-app
 cd ai-invoice-saas
 ```
 
