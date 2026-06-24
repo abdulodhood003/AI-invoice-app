@@ -98,15 +98,15 @@ AI Invoice SaaS is a modern invoice management system built with the MERN Stack.
 
 ### Dashboard
 
-<img src="./screenshots/dashboard.png" width="100%" />
+<img src="./images/Dashboard.png" width="100%" />
 
 ### Invoice Management
 
-<img src="./screenshots/invoices.png" width="100%" />
+<img src="./images/Invoice.png" width="100%" />
 
 ### Product Management
 
-<img src="./screenshots/products.png" width="100%" />
+<img src="./images/Product.png" width="100%" />
 
 ---
 
