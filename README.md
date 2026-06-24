@@ -2,10 +2,10 @@
 
 <div align="center">
 
-![React](https://img.shields.io/badge/React-19-blue?style=for-the-badge\&logo=react)
-![Node.js](https://img.shields.io/badge/Node.js-Backend-green?style=for-the-badge\&logo=node.js)
-![MongoDB](https://img.shields.io/badge/MongoDB-Database-green?style=for-the-badge\&logo=mongodb)
-![Express](https://img.shields.io/badge/Express.js-API-black?style=for-the-badge\&logo=express)
+![React](https://img.shields.io/badge/React-19-blue?style=for-the-badge&logo=react)
+![Node.js](https://img.shields.io/badge/Node.js-Backend-green?style=for-the-badge&logo=node.js)
+![MongoDB](https://img.shields.io/badge/MongoDB-Database-green?style=for-the-badge&logo=mongodb)
+![Express](https://img.shields.io/badge/Express.js-API-black?style=for-the-badge&logo=express)
 ![AI Powered](https://img.shields.io/badge/AI-Powered-purple?style=for-the-badge)
 
 ### Intelligent Invoice Management Platform with AI-Powered Business Insights
@@ -20,11 +20,17 @@
   </a>
 </p>
 
+## ⚡ Lighthouse Scores
+
+![Mobile](https://img.shields.io/badge/Mobile-63-orange?style=for-the-badge)
+![Desktop](https://img.shields.io/badge/Desktop-90-brightgreen?style=for-the-badge)
+![Accessibility](https://img.shields.io/badge/Accessibility-91-brightgreen?style=for-the-badge)
+![Best_Practices](https://img.shields.io/badge/Best_Practices-96-brightgreen?style=for-the-badge)
+![SEO](https://img.shields.io/badge/SEO-92-brightgreen?style=for-the-badge)
+
 </div>
 
 ---
-
-## 📖 Overview
 
 ## 📖 Overview
 
