@@ -60,11 +60,15 @@ const Dashboard = () => {
     }
   };
 
-  useEffect(() => {
-    if (!loading && data) {
-      fetchAIInsights();
-    }
-  }, [loading, data]);
+ useEffect(() => {
+  if (!data) return;
+
+  const timer = setTimeout(() => {
+    fetchAIInsights();
+  }, 3000);
+
+  return () => clearTimeout(timer);
+}, [data]);
 
   if (loading) return <div className="flex items-center justify-center min-h-[60vh]"><Loader /></div>;
 
