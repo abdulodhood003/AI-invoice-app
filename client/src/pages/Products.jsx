@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import * as XLSX from 'xlsx';
+
 import { useProductsData } from '../hooks/useProductsData';
 import Loader from '../components/ui/Loader';
 import { Plus, Trash2, Edit, Package, Calendar, AlertCircle, Download, Search } from 'lucide-react';
@@ -85,26 +85,30 @@ const Products = () => {
     }
   };
 
-  const exportToExcel = () => {
-    const exportData = products.map((product) => ({
-      'Product Name': product.name,
-      'Category': product.category,
-      'Price (₹)': product.price,
-      'Stock': product.stock,
-      'Unit': product.unit,
-      'Barcode': product.barcode || '',
-      'Status': product.stock < 10 ? 'Low Stock' : 'In Stock',
-      'Tax (%)': product.tax || 0,
-      'Expiry Date': product.expiryDate ? new Date(product.expiryDate).toLocaleDateString() : 'N/A',
-      'Supplier': product.supplier || ''
-    }));
+const exportToExcel = async () => {
+  const XLSX = await import('xlsx');
 
-    const worksheet = XLSX.utils.json_to_sheet(exportData);
-    const workbook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(workbook, worksheet, "Products");
-    XLSX.writeFile(workbook, "products_inventory_export.xlsx");
-  };
+  const exportData = products.map((product) => ({
+    'Product Name': product.name,
+    'Category': product.category,
+    'Price (₹)': product.price,
+    'Stock': product.stock,
+    'Unit': product.unit,
+    'Barcode': product.barcode || '',
+    'Status': product.stock < 10 ? 'Low Stock' : 'In Stock',
+    'Tax (%)': product.tax || 0,
+    'Expiry Date': product.expiryDate
+      ? new Date(product.expiryDate).toLocaleDateString()
+      : 'N/A',
+    'Supplier': product.supplier || ''
+  }));
 
+  const worksheet = XLSX.utils.json_to_sheet(exportData);
+  const workbook = XLSX.utils.book_new();
+
+  XLSX.utils.book_append_sheet(workbook, worksheet, 'Products');
+  XLSX.writeFile(workbook, 'products_export.xlsx');
+};
   // Helper to safely format dates
   const formatDate = (dateStr) => {
     if (!dateStr) return 'N/A';

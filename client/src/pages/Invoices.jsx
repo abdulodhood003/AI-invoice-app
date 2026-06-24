@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Plus, Download, Search } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import * as XLSX from 'xlsx';
+
 import { useInvoicesData } from '../hooks/useInvoicesData';
 import InvoiceTable from '../components/invoices/InvoiceTable';
 import Loader from '../components/ui/Loader';
@@ -24,23 +24,27 @@ const Invoices = () => {
     }
   };
 
-  const exportToExcel = () => {
-    const exportData = invoices.map(invoice => ({
-      'Invoice Number': invoice.invoiceNumber,
-      'Date': new Date(invoice.date).toLocaleDateString(),
-      'Due Date': new Date(invoice.dueDate).toLocaleDateString(),
-      'Client Name': invoice.clientId?.name || invoice.consumerDetails?.name || 'Walk-in',
-      'Client Email': invoice.clientId?.email || invoice.consumerDetails?.email || '',
-      'Status': invoice.status,
-      'Total Amount': invoice.totalAmount,
-      'Notes': invoice.notes || ''
-    }));
+ const exportToExcel = async () => {
+  const XLSX = await import('xlsx');
 
-    const worksheet = XLSX.utils.json_to_sheet(exportData);
-    const workbook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(workbook, worksheet, "Invoices");
-    XLSX.writeFile(workbook, "invoices_export.xlsx");
-  };
+  const exportData = invoices.map(invoice => ({
+    'Invoice Number': invoice.invoiceNumber,
+    'Date': new Date(invoice.date).toLocaleDateString(),
+    'Due Date': new Date(invoice.dueDate).toLocaleDateString(),
+    'Client Name': invoice.clientId?.name || invoice.consumerDetails?.name || 'Walk-in',
+    'Client Email': invoice.clientId?.email || invoice.consumerDetails?.email || '',
+    'Status': invoice.status,
+    'Total Amount': invoice.totalAmount,
+    'Notes': invoice.notes || ''
+  }));
+
+  const worksheet = XLSX.utils.json_to_sheet(exportData);
+  const workbook = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(workbook, worksheet, 'Invoices');
+  XLSX.writeFile(workbook, 'invoices_export.xlsx');
+};
+
+   
 
   return (
     <div>
