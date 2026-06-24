@@ -97,7 +97,7 @@ Built with the MERN Stack, the platform combines powerful automation, real-time 
 
 | Frontend      | Backend    | Database       | AI          |
 | ------------- | ---------- | -------------- | ----------- |
-| React.js      | Node.js    | MongoDB        | HuggingfFace|
+| React.js      | Node.js    | MongoDB        | Hugging Face|
 | Tailwind CSS  | Express.js | MongoDB Atlas  | Google AI   |
 | Redux Toolkit | JWT        | Mongoose       | AI Insights |
 | Recharts      | REST API   | Cloud Database | Automation  |
